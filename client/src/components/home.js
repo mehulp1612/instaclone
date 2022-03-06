@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { DARK_COLOR1, PRIMARY_COLOR, SECONDARY_COLOR } from "../constants/colors";
+import { CONTRAST_COLOR1, CONTRAST_COLOR2, DARK_COLOR1, PRIMARY_COLOR, SECONDARY_COLOR } from "../constants/colors";
 import { allPosts } from "./api.js/service";
 import Post from "./appComps/post";
 
@@ -20,13 +20,31 @@ export default function Home(){
         height:'50px',
         border:`solid 5px ${SECONDARY_COLOR}`,
         borderRadius:'10px',
-        width:'30vw',
+        width:'30%',
         color:`${DARK_COLOR1}`,
         fontSize:18,
+        cursor:'pointer',
         
     }
-    const userStyle={
 
+    const two_button_style={
+        display:'flex',
+        flexDirection:'row',
+        width:'75%',
+        margin:'10px 0',
+        justifyContent:'space-around',
+    }
+    const userStyle={
+        margin:'10px',
+        fontSize:20
+    }
+
+    const search_style={
+        width:'60%',
+        fontSize:'20px',
+        background:CONTRAST_COLOR2,
+        border:`solid 2px ${CONTRAST_COLOR1}`,
+        textAlign:'center',
     }
     const [currentUser,setCurrentUser]=useState();
     const [userDisplay,setUserDisplay]=useState();
@@ -76,11 +94,15 @@ export default function Home(){
     
     return(
         <div style={pageStyle}>
-        <p style={userStyle}>Welcome: {userDisplay}</p>
-        <button style={profile_button_style} type="submit" onClick={(e)=>submitHandler(e)}>User Profile</button> 
-        <input type="text" placeholder='Search Posts' onChange={(e)=>setSearchKey(e.target.value)} />
-        <button onClick={(e)=>submitFind(e)}> Find User </button>
-        <button onClick={(e)=>handleLogout(e)}>Logout</button>
+        <p style={userStyle}>Welcome to InstaClone</p>
+        <div style={two_button_style}>
+            <button style={profile_button_style} onClick={(e)=>submitFind(e)}> Find User </button>
+            <button style={profile_button_style} type="submit" onClick={(e)=>submitHandler(e)}>{userDisplay}</button> 
+            <button style={profile_button_style} onClick={(e)=>handleLogout(e)}>Logout</button>
+        </div>
+        
+        <input style={search_style} type="text" placeholder='Search Posts by Username or Caption' onChange={(e)=>setSearchKey(e.target.value)} />        
+        
 
         {posts&&
             posts.filter((ele)=>(ele.user.name.toLowerCase()).startsWith(searchKey.toLowerCase())||(ele.caption.startsWith(searchKey)))

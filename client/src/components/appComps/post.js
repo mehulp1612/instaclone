@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { PRIMARY_COLOR,SECONDARY_COLOR, CONTRAST_COLOR1, CONTRAST_COLOR2, TERTIARY_COLOR } from "../../constants/colors"
+import { PRIMARY_COLOR,SECONDARY_COLOR, CONTRAST_COLOR1, CONTRAST_COLOR2, TERTIARY_COLOR, DARK_COLOR1, DARK_COLOR2 } from "../../constants/colors"
 import { createComment, getComments } from "../api.js/service"
 
 export default function Post(props){
@@ -57,10 +57,34 @@ export default function Post(props){
     }
     const add__comment__container={
         display:'flex',
-        width:'100%',
+        // width:'100%',
         flexDirection:'row',
+        marginRight:'5px',
+        marginLeft:'5px',
+        marginTop:'5px',
+    }
 
+    const add_comment_input={
+        width:'78%', 
+        background:'',
+        marginRight:'5px',
+        height:'20px',
+        fontSize:'15px',
+        border:`5px solid ${PRIMARY_COLOR}`,
+        background:CONTRAST_COLOR2,
+        
+    }
 
+    const add_comment_button={
+        width:'22%',
+        textAlign:'center',
+        // height:'32px',
+        border:`4px solid ${SECONDARY_COLOR}`,
+        background:PRIMARY_COLOR,
+        fontSize:'15px',
+        fontWeight:'bold',
+        color:SECONDARY_COLOR,
+        cursor:'pointer',
     }
 
     const show__comment__container={
@@ -68,6 +92,8 @@ export default function Post(props){
         display:'flex',
         width:'100%',
         flexDirection:'row',
+        borderBottom:`1.5px solid ${CONTRAST_COLOR2}`,
+        
     }
     const like__container={
         fontSize:'18px',
@@ -137,15 +163,15 @@ export default function Post(props){
             </div>
             <div style={like__container}>Likes: {props.post.likes}</div>
             {props.logedIn && <div style={add__comment__container}>
-                <input type="text" placeholder="Comment"  style={{width:'82vw'}} onChange={(e)=>setComment(e.target.value)}/>
-                <button type='submit' style={{width:'18vw'}} onClick={(e)=>commentHandler(e)}>Comment</button>
+                <input type="text" placeholder="Comment"  style={add_comment_input} onChange={(e)=>setComment(e.target.value)}/>
+                <button type='submit' style={add_comment_button} onClick={(e)=>commentHandler(e)}>Add</button>
             </div>}
             <div>
-                {!comments ? <div>No comments</div> :
+                {!comments ? <div>No Comments</div> :
                     comments?.data?.map((ele)=>{
                         return <div style={show__comment__container}> 
-                            <div>{ele.poster.name} : </div>
-                            <div>{ele.data}</div>
+                            <div>{ele.poster.name}</div>
+                            <div>: {ele.data}</div>
                         </div>
                     
                     }
