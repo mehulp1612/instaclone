@@ -25,16 +25,16 @@ export default function Profile(){
         height:'50px',
         border:`solid 5px ${SECONDARY_COLOR}`,
         borderRadius:'10px',
-        width:'30vw',
+        width:'33%',
         color:`${DARK_COLOR1}`,
-        fontSize:20,
-        
+        fontSize:18,
+        cursor:'pointer',
     }
-    const create__hover={
-        background:`${SECONDARY_COLOR}`,
-        border:`solid 5px ${PRIMARY_COLOR}`,
-
-
+    const profileHeader={
+        display:'flex',
+        flexDirection:'row',
+        width:'90%',
+        justifyContent:'space-between',
     }
 
     // const [currentUser,setCurrentUser]=useState();
@@ -60,17 +60,24 @@ export default function Profile(){
         navigate('/createPost');
 
     }
+
+    function handleHome(e){
+        e.preventDefault();
+        navigate('/home');
+    }
     console.log("details",userDetails);
     console.log("posts",userPosts);
     return(
         <div style={container__style}>
+            <div style={profileHeader}>
+            <button style={create_button_style} on onClick={(e)=>{handleHome(e)}}>Back To Home</button>
         {userDetails&&<div>
             {userDetails.name}<br></br>
             {userDetails.email}<br></br>
             {userDetails.phone}<br></br>
         </div>}
         <button style={create_button_style} type="submit" onClick={(e)=>{submitHandler(e)}}>CREATE POST</button>
-
+        </div>
         {/* <hr width="100%"></hr> */}
         {/* <div style={container__style}> */}
         {userPosts&&

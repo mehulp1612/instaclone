@@ -223,7 +223,7 @@ async function createPost(req,res){
     const post=await req.body.post;
     const img=await req.body.img;
     // console.log("chala",post);
-    console.log(post,img);
+    // console.log(post,img);
     const temp={...post,image:img};
     // console.log(temp);
     const newPost=new Post(temp);
@@ -264,8 +264,8 @@ async function getComments(req,res){
     if(post){
     const comments=await Comment.find({post:post}).populate("poster");
 
-    console.log(comments);
-    console.log(post);
+    // console.log(comments);
+    // console.log(post);
     res.json(comments);
     return comments;
     }
@@ -277,10 +277,10 @@ async function find(req,res){
     const name=await req.body.name;
     if(name){
     const resp=await User.findOne({name:name});
-    console.log(resp);
+    // console.log(resp);
     if(resp){
         const res2=await Post.find({user:resp._id}).populate("user");
-        console.log(res2);
+        // console.log(res2);
         res.json(res2);
         return res;
     }
