@@ -18,6 +18,7 @@ export default function Profile(){
         alignItems:'center',
         // width:'85%',
         background:`${DARK_COLOR1}`,
+        
     }
 
     const create_button_style={
@@ -35,6 +36,20 @@ export default function Profile(){
         flexDirection:'row',
         width:'90%',
         justifyContent:'space-between',
+        marginTop:'15px',
+    }
+
+    const userDetail_style={
+        background:`${CONTRAST_COLOR2}`,
+        // height:'50px',
+        border:`solid 5px ${PRIMARY_COLOR}`,
+        borderRadius:'10px',
+        padding:'0 15px',
+        // width:'33%',
+        color:`${DARK_COLOR1}`,
+        fontSize:18,
+        // cursor:'pointer',        
+
     }
 
     // const [currentUser,setCurrentUser]=useState();
@@ -71,10 +86,10 @@ export default function Profile(){
         <div style={container__style}>
             <div style={profileHeader}>
             <button style={create_button_style} on onClick={(e)=>{handleHome(e)}}>Back To Home</button>
-        {userDetails&&<div>
-            {userDetails.name}<br></br>
-            {userDetails.email}<br></br>
-            {userDetails.phone}<br></br>
+        {userDetails&&<div style={userDetail_style}>
+            Name: {userDetails.name}<br></br>
+            Email: {userDetails.email}<br></br>
+            Phone: {userDetails.phone}<br></br>
         </div>}
         <button style={create_button_style} type="submit" onClick={(e)=>{submitHandler(e)}}>CREATE POST</button>
         </div>

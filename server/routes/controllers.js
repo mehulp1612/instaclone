@@ -283,19 +283,16 @@ async function find(req,res){
         // console.log(res2);
         res.json(res2);
         return res;
-    }
-    }
-    // if(resp){
-    //     const res2=await Post.find({user:resp._id}).populate("user");
-    //     console.log(res2);
-    //     res.json(res2);
-    //     return res;
-    // }
+    }    
     else {
         res.json(false);
         return false;
     }
 }
+    res.json(false);
+    return false;
+}
+
 
 
 module.exports={login,signUp,resetPass,passSet,check,createPost,userDetails,createPost,sendAll,addComment,getComments,find};
