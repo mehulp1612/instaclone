@@ -60,10 +60,13 @@ async function signUp(req,res){
     }
     const duplicate=await User.findOne({email:email});
     // console.log("dup",duplicate.email);
+    if(duplicate){
+        return res.status(295).json("User already exists for this email");
+    }
     const duplicate1=await User.findOne({phone:phone});
 
-    if(duplicate||duplicate1){    
-        res.status(296).json("user already exists");
+    if(duplicate1){    
+        res.status(296).json("Phone number already in use");
     }
     else{
         const newPass=await bcrypt.hash(pass,12);
@@ -274,15 +277,15 @@ async function getComments(req,res){
 }
 
 async function find(req,res){
-    const name=await req.body.name;
-    if(name){
-    const resp=await User.findOne({name:name});
+    const email=await req.body.email;
+    if(email){
+    const resp=await User.findOne({email:email});
     // console.log(resp);
     if(resp){
         const res2=await Post.find({user:resp._id}).populate("user");
         // console.log(res2);
-        res.json(res2);
-        return res;
+        
+        return res.json(res2);
     }    
     else {
         res.json(false);

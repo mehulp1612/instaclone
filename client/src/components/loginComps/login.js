@@ -113,7 +113,7 @@ export default function Login() {
                     <div style={{fontSize:'25px', textAlign:'center', marginBottom:'5px'}}>LOGIN</div>
                     <input style={input_Style} type="email" placeholder="Email" onChange={(e) => mailHandler(e)} />
                     <input style={input_Style} type="password" placeholder="Password" onChange={(e) => passHandler(e)} />
-                    <button style={{...input_Style,cursor:'pointer'}} type="submit" onClick={(e) => submitHandler(e)}>SUBMIT</button>
+                    <button style={{...create_button_style,width:'50%',marginLeft:'25%',background:`radial-gradient(circle, ${PRIMARY_COLOR} 40%,${SECONDARY_COLOR})`}} type="submit" onClick={(e) => submitHandler(e)}>SUBMIT</button>
                 </form>
 
                 <br></br>

@@ -58,7 +58,7 @@ async function findUser(e){
     e.preventDefault();
     toast.info("searching",750);
 
-    const res=await findProfile({name:searchUser});
+    const res=await findProfile({email:searchUser});
     console.log(res);
     if(res){
         setPosts(res);
@@ -77,7 +77,7 @@ function backHandler(e){
 return(
     <div style={pageStyle}>
         <div style={search_Container}>
-            <input type="text" style={search_style} placeholder='Search Posts by Username' onChange={(e)=>setSearchUser(e.target.value)} />
+            <input type="text" style={search_style} placeholder='Search Posts by Email' onChange={(e)=>setSearchUser(e.target.value)} />
             <button type="submit" style={button_Style} onClick={(e)=>findUser(e)}>Find User</button>
         </div>
         <div>
