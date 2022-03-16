@@ -46,7 +46,12 @@ export default function SignUp(){
         }
     }
 
+    function loginHandler(e){
+        e.preventDefault();
 
+        navigate('/');
+    }
+    
     const container__style={
         display:'flex',
         flexDirection:'column',
@@ -104,12 +109,12 @@ export default function SignUp(){
         <form style={form_container}>
             <div style={{textAlign:'center',fontSize:'25px',marginBottom:'10px'}}>CREATE ACCOUNT</div> 
             <input style={input_Style} type='email' name="email" placeholder="Email" onChange={(e)=>changeHandler(e)} />
-            <input style={input_Style} type='number' name="phone" placeholder="Phone Number" onChange={(e)=>changeHandler(e)} />
             <input style={input_Style} type='text' name="name" placeholder="Name" onChange={(e)=>changeHandler(e)} />
+            <input style={input_Style} type='number' name="phone" placeholder="Phone Number" onChange={(e)=>changeHandler(e)} />
             <input style={input_Style} type='password' name="pass" placeholder="Password" onChange={(e)=>changeHandler(e)} />
             <button style={create_button_style} type="submit" onClick={(e)=>submitHandler(e)}>Submit</button>
-
         </form>
+        <button onClick={(e)=>{loginHandler(e)}} style={{...create_button_style,width:'35%', margin:'10px 0',background:PRIMARY_COLOR}}>Back to Login</button>
         </div>
     )
 }

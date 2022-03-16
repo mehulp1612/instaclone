@@ -117,17 +117,10 @@ export default function Post(props){
             poster:props.logedIn._id
         };
         const res=await createComment(newComment);
-        // const res=await createComment({
-        //     post:props.post._id,
-        //     data:comment,
-        //     poster:props.logedIn._id
-        // })
+        
         setCommentOpen(!commentOpen);
         console.log(comments);
-        // setComments({
-        //     ...comments,
-        //     data:comments.data.push(newComment)
-        // })
+        
     }
     // console.log(props);
     useEffect(async()=>{
@@ -136,23 +129,9 @@ export default function Post(props){
         });
         setComments(res);
     
-    },[commentOpen]);
+    },[commentOpen,props]);
 
-    // async function showCommentHandler(e){
-    //     e.preventDefault();
-    //     if(!commentOpen){
-    //     const res=await getComments({
-    //         post:props.post._id
-    //     });
-    //     setComments(res);
-    //     console.log(res);
-    //     setCommentOpen(true);
-    // }
-    // else{
-    //     setCommentOpen(false);
-    // }
-
-    // }
+  
     console.log(comments);  
     return(
         <div style={parent__container}>

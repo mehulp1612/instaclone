@@ -2,12 +2,14 @@ import { useState } from "react";
 import { Navigate, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { CONTRAST_COLOR1, CONTRAST_COLOR2, DARK_COLOR1, PRIMARY_COLOR, SECONDARY_COLOR } from "../../constants/colors";
 import { checkOtp, passwordChanger, sendOtp } from "../api.js/service";
 
 
 export default function Forgot(){
     const navigate=useNavigate();
 
+    toast.configure();
     const [mail,setMail]=useState();
     const [disabled,setDisabled]=useState(false);
     const [userOtp,setUserOtp]=useState();
@@ -23,11 +25,12 @@ export default function Forgot(){
         console.log("resr",res);
         
         if(res.status==295){
-            console.log("Invalid email");
+            // console.log("Invalid email");
             toast.error("Mail not found");
             // setDisabled(true);
         }
         if(res.status==202){
+            toast.info("An otp has been sent to the registered mail address");
             setRealOtp(res.data);
             setDisabled(true);
         }
@@ -41,7 +44,7 @@ export default function Forgot(){
                 realOtp:realOtp
             });
             console.log(otpMatch);
-            if(otpMatch==true){
+            if(otpMatch.data=='match'){
                 console.log("otp match");
                 setPasswrd(true);
 
@@ -74,25 +77,92 @@ export default function Forgot(){
             }
 
         }
+
+
+        function loginHandler(e){
+            e.preventDefault();
+
+            navigate('/');
+        }
+
+        function signUpHandler(e){
+            e.preventDefault();
+
+            navigate('/signup');
+        }
+        const container__style={
+            display:'flex',
+            flexDirection:'column',
+            // justifyContent:'center',
+            alignItems:'center',
+            // width:'85%',
+            background:`${DARK_COLOR1}`,
+            minHeight:'100vh',
+            
+        }
+    
+        const form_container={
+            display:'flex',
+            flexDirection:'column',
+            width:'50%',
+            // alignItems:'',
+            justifyContent:'center',
+            marginTop:'10%',
+            // marginLeft:'25%',
+            background:PRIMARY_COLOR,
+            padding:'50px',
+            border:`ridge 10px ${SECONDARY_COLOR}`
+        }
+    
+        const create_button_style={
+            // background:`${PRIMARY_COLOR}`,
+            background:`radial-gradient(circle, ${PRIMARY_COLOR} 40%,${SECONDARY_COLOR})`,
+            height:'50px',
+            border:`solid 5px ${SECONDARY_COLOR}`,
+            borderRadius:'10px',
+            width:'50%',
+            marginLeft:'25%',
+            color:`${DARK_COLOR1}`,
+            fontSize:18,
+            cursor:'pointer',
+            textAlign:'center',
+            textDecoration:'none',
+            lineHeight:2.5,
+        }
+        const input_Style={
+            width:'58%',
+            fontSize:'20px',
+            background:CONTRAST_COLOR2,
+            border:`solid 2px ${CONTRAST_COLOR1}`,
+            textAlign:'center',
+            marginLeft:'21%',
+            marginBottom:'10px',
+            height:'30px',
+        }
+       
+       
+    
     return(
-        <>
-            <form>
-                <input type="email" placeholder="email" disabled={disabled} onChange={(e)=>setMail(e.target.value)} />
-                <button type="submit" disabled={disabled} onClick={(e)=>mailSubmit(e)}>Send OTP</button>
-            </form>
+        <div style={container__style}>
+            <form style={form_container}>
+            <div style={{fontSize:'25px',margin:'20px 0',textAlign:'center'}}>Forgot Password</div>
+                <input style={input_Style} type="email" placeholder="Email" disabled={disabled} onChange={(e)=>setMail(e.target.value)} />
+                <button style={create_button_style} type="submit" disabled={disabled} onClick={(e)=>mailSubmit(e)}>Send OTP</button>
             <br></br>
             {disabled&&!passwrd&&
-                <form>
-                    <input type="number" placeholder="OTP" onChange={(e)=>setUserOtp(e.target.value)} />
-                    <button type="submit" onClick={(e)=>validateOtp(e)}>Submit OTP </button>
-                </form>}
+                <div>
+                    <input style={input_Style} type="number" placeholder="OTP" onChange={(e)=>setUserOtp(e.target.value)} />
+                    <button style={create_button_style} type="submit" onClick={(e)=>validateOtp(e)}>Submit OTP </button>
+                </div>}
             {passwrd &&
-                <form>
-                <input type="password" placeholder="New Password" onChange={(e)=>setNewPass(e.target.value)} />
-                <button type="submit" onClick={(e)=>updateNewPass(e)}>Update Password</button>
-            </form>
+                <div>
+                <input style={input_Style} type="password" placeholder="New Password" onChange={(e)=>setNewPass(e.target.value)} />
+                <button style={create_button_style} type="submit" onClick={(e)=>updateNewPass(e)}>Update Password</button>
+            </div>
             }
-            <ToastContainer />
-        </>
+            </form>
+                <button onClick={(e)=>{signUpHandler(e)}} style={{...create_button_style,width:'35%', margin:'10px 0',background:PRIMARY_COLOR}}>Sign UP</button>
+                <button onClick={(e)=>{loginHandler(e)}} style={{...create_button_style,width:'35%', margin:'10px 0',background:PRIMARY_COLOR}}>Back to Login</button>
+        </div>
     )
 }
