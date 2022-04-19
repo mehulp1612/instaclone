@@ -2,6 +2,7 @@ import {BrowserRouter, Routes, Route} from 'react-router-dom';
 import CreatePost from './components/appComps/createPost';
 import Profile from './components/appComps/profile';
 import Find from './components/find';
+import Footer from './components/footer/footer';
 import Home from './components/home';
 import Forgot from './components/loginComps/forgot';
 import Login from './components/loginComps/login';

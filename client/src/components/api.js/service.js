@@ -40,6 +40,7 @@ export async function getUserData(userId){
 
 export async function submitPost(post,img){
     const res=await axios.post('/postCreate',{post,img});
+    // console.log("res",res);
     return res;
 }
 export async function allPosts(){

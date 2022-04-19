@@ -4,6 +4,7 @@ import { createUser } from "../api.js/service";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { CONTRAST_COLOR1, CONTRAST_COLOR2, DARK_COLOR1, PRIMARY_COLOR, SECONDARY_COLOR } from "../../constants/colors";
+import Footer from "../footer/footer";
 
 
 
@@ -115,6 +116,7 @@ export default function SignUp(){
             <button style={create_button_style} type="submit" onClick={(e)=>submitHandler(e)}>Submit</button>
         </form>
         <button onClick={(e)=>{loginHandler(e)}} style={{...create_button_style,width:'35%', margin:'10px 0',background:PRIMARY_COLOR}}>Back to Login</button>
+        <Footer></Footer>
         </div>
     )
 }

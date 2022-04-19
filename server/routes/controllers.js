@@ -230,6 +230,7 @@ async function createPost(req,res){
     const temp={...post,image:img};
     // console.log(temp);
     const newPost=new Post(temp);
+    // console.log(newPost);
 
     newPost.save().then(()=>res.json("chala").status(202)).catch(err=> res.json("eror").status(505));
 }

@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { CONTRAST_COLOR1, CONTRAST_COLOR2, DARK_COLOR1, PRIMARY_COLOR, SECONDARY_COLOR } from "../constants/colors";
 import { findProfile } from "./api.js/service";
 import Post from "./appComps/post";
+import Footer from "./footer/footer";
 
 
 export default function Find(){
@@ -53,6 +54,15 @@ const search_Container={
 
 }
 
+
+const [loggedIn,setLoggedIn]=useState(false);
+
+useEffect(async()=>{
+    if(localStorage.getItem('token')){
+        // console.log(localStorage.getItem('token'));
+        setLoggedIn(true);
+    }},[]);
+
 async function findUser(e){
 
     e.preventDefault();
@@ -84,8 +94,8 @@ return(
             {posts?.data.length>0?
                 posts.data.map((ele,i)=>{
 
-                    return <Post post={ele} user={ele.user.name} logedIn={false} />
-                   
+                    return <Post post={ele} user={ele.user.name} logedIn={loggedIn} />
+                    
                 }
                 )
                 
@@ -96,6 +106,9 @@ return(
         </div>
 
         <button style={button_Style} onClick={(e)=>{backHandler(e)}}>Back To Home</button>
+        <div style={{marginBottom:'50px'}}></div>
+
+        <Footer></Footer>
 
     </div>
 )

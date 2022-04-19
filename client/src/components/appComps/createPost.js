@@ -24,7 +24,7 @@ export default function CreatePost() {
         if (!token || !user) {
             navigate('/');
         }
-        console.log("name", user._id);
+        // console.log("name", user._id);
         setPost({
             ...post,
             likes: 0,
@@ -70,11 +70,19 @@ export default function CreatePost() {
         //     ...post,
         //     image:resp1.url
         // });
-        console.log(post);
+        // console.log(post);
 
+        if(resp1.url && post.caption!=''){
         const sent=await submitPost(post,resp1.url);
+        // console.log("sent",sent);
+        toast.dismiss();
         toast.success("Post Created");
         navigate('/userProfile');
+        }
+        else{
+            toast.dismiss();
+            toast.error("Data missing");
+        }
     }
 
     function homeHandler(e){

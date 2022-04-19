@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { CONTRAST_COLOR1, CONTRAST_COLOR2, DARK_COLOR1, PRIMARY_COLOR, SECONDARY_COLOR } from "../constants/colors";
 import { allPosts } from "./api.js/service";
 import Post from "./appComps/post";
+import Footer from "./footer/footer";
 
 export default function Home(){
 
@@ -13,6 +14,7 @@ export default function Home(){
         flexDirection:'column',
         alignItems:'center',
         justifyContent:'center',
+        // :'100%',
     }
 
     const profile_button_style={
@@ -33,6 +35,7 @@ export default function Home(){
         width:'75%',
         margin:'10px 0',
         justifyContent:'space-around',
+        
     }
     const userStyle={
         margin:'10px',
@@ -79,7 +82,7 @@ export default function Home(){
     
     function submitFind(e){
         e.preventDefault();
-        console.log("clocked");
+        // console.log("clocked");
         navigate('/find');
 
     }
@@ -108,11 +111,14 @@ export default function Home(){
             posts.filter((ele)=>(ele.user.name.toLowerCase()).startsWith(searchKey.toLowerCase())||(ele.caption.startsWith(searchKey)))
             .map((ele,i)=>{
 
-                return <Post post={ele} user={ele.user.name} logedIn={currentUser} />
+                return <Post key={i} post={ele} user={ele.user.name} logedIn={currentUser} />
                
             }
             )
         }
+        <div style={{marginBottom:'50px'}}></div>
+
+        <Footer></Footer>
 
         
         </div>

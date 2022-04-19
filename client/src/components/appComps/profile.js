@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { CONTRAST_COLOR2, CONTRAST_COLOR1, TERTIARY_COLOR, SECONDARY_COLOR, DARK_COLOR1, PRIMARY_COLOR } from "../../constants/colors";
 import { getUserData } from "../api.js/service";
+import Footer from "../footer/footer";
 import Post from "./post";
 
 
@@ -80,8 +81,8 @@ export default function Profile(){
         e.preventDefault();
         navigate('/home');
     }
-    console.log("details",userDetails);
-    console.log("posts",userPosts);
+    // console.log("details",userDetails);
+    // console.log("posts",userPosts);
     return(
         <div style={container__style}>
             <div style={profileHeader}>
@@ -111,6 +112,10 @@ export default function Profile(){
             {/* </div> */}
         
        {/* <p>{userPosts && <p>{JSON.stringify(userPosts)}</p>}</p> */}
+
+       <div style={{marginBottom:'50px'}}></div>
+
+       <Footer></Footer>
         
         </div>
     )

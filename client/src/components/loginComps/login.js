@@ -5,6 +5,7 @@ import { validate } from "../api.js/service.js";
 // import ReCAPTCHA from "react-google-recaptcha";
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Footer from "../footer/footer.js";
 
 
 
@@ -122,6 +123,8 @@ export default function Login() {
                 <br></br>
                 <Link style={create_button_style} to="/forgot">Forgot Password</Link>
 
+
+                <Footer></Footer>
         </div>
     )
 }

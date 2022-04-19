@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
+import { Navigate, useNavigate } from "react-router-dom"
 import { PRIMARY_COLOR,SECONDARY_COLOR, CONTRAST_COLOR1, CONTRAST_COLOR2, TERTIARY_COLOR, DARK_COLOR1, DARK_COLOR2 } from "../../constants/colors"
 import { createComment, getComments } from "../api.js/service"
 
 export default function Post(props){
 
 
+    const navigator=useNavigate();
     const parent__container={
         display:'flex',
         flexDirection:'column',
@@ -108,9 +110,14 @@ export default function Post(props){
     const [comments,setComments]=useState();
     const [commentOpen,setCommentOpen]=useState(false);
 
+    function loginHandler(e){
+        e.preventDefault();
+        navigator('/');
+    }
+
     async function commentHandler(e){
         e.preventDefault(); 
-        console.log(comment);
+        // console.log(comment);
         const newComment={
             post:props.post._id,
             data:comment,
@@ -119,7 +126,7 @@ export default function Post(props){
         const res=await createComment(newComment);
         
         setCommentOpen(!commentOpen);
-        console.log(comments);
+        // console.log(comments);
         
     }
     // console.log(props);
@@ -132,7 +139,7 @@ export default function Post(props){
     },[commentOpen,props]);
 
   
-    console.log(comments);  
+    // console.log(comments);
     return(
         <div style={parent__container}>
             <div style={caption__container}>{props.user}</div>
@@ -141,14 +148,18 @@ export default function Post(props){
                 <img  style= {image__style} src={props.post.image} alt="post"></img>
             </div>
             <div style={like__container}>Likes: {props.post.likes}</div>
-            {props.logedIn && <div style={add__comment__container}>
+            {props.logedIn ? <div style={add__comment__container}>
                 <input type="text" placeholder="Comment"  style={add_comment_input} onChange={(e)=>setComment(e.target.value)}/>
                 <button type='submit' style={add_comment_button} onClick={(e)=>commentHandler(e)}>Add</button>
+            </div>:
+            <div style={add__comment__container}>
+                <input type="text" placeholder="Login to Comment"  disabled={true} style={add_comment_input} onChange={(e)=>setComment(e.target.value)}/>
+                <button type='submit'  style={add_comment_button} onClick={(e)=>{loginHandler(e)}}>Login</button>
             </div>}
             <div>
                 {!comments ? <div>No Comments</div> :
-                    comments?.data?.map((ele)=>{
-                        return <div style={show__comment__container}> 
+                    comments?.data?.map((ele,ind)=>{
+                        return <div key={ind} style={show__comment__container}> 
                             <div>{ele.poster.name}</div>
                             <div>: {ele.data}</div>
                         </div>
